@@ -1,0 +1,32 @@
+[package]
+name    = "kernel-engineering"
+version = "0.1.0"
+edition = "2021"
+authors = ["NuRichter"]
+license = "MIT"
+
+[[bin]]
+name              = "kernel"
+path              = "src/main.rs"
+
+[dependencies]
+spin          = { version = "0.9", default-features = false }
+bitflags      = "2"
+x86_64        = "0.15"
+linked_list_allocator = "0.10"
+
+[profile.dev]
+panic   = "abort"
+opt-level = 0
+
+[profile.release]
+panic     = "abort"
+opt-level = 3
+lto       = true
+strip     = true
+codegen-units = 1
+
+[features]
+default    = []
+serial_log = []
+vga_log    = []
